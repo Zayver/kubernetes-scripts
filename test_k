@@ -1,0 +1,28 @@
+sudo kubeadm init --pod-network-cidr=172.16.0.0/12 --apiserver-advertise-address 10.43.100.11 --node-name "zayver.worker-node" --control-plane-endpoint 10.43.100.11
+
+
+netsh interface portproxy add v4tov4 listenport=6443 listenaddress=0.0.0.0 connectport=6443 connectaddress=(wsl hostname -I)
+netsh interface portproxy add v4tov4 listenport=2379 listenaddress=0.0.0.0 connectport=2379 connectaddress=(wsl hostname -I)
+netsh interface portproxy add v4tov4 listenport=2380 listenaddress=0.0.0.0 connectport=2380 connectaddress=(wsl hostname -I)
+netsh interface portproxy add v4tov4 listenport=10250 listenaddress=0.0.0.0 connectport=10250 connectaddress=(wsl hostname -I)
+netsh interface portproxy add v4tov4 listenport=10251 listenaddress=0.0.0.0 connectport=10251 connectaddress=(wsl hostname -I)
+netsh interface portproxy add v4tov4 listenport=10252 listenaddress=0.0.0.0 connectport=10252 connectaddress=(wsl hostname -I)
+
+
+
+--control-plane-endpoint: NO SIRVEEEEE
+
+
+
+sudo iptables -t nat -A OUTPUT -d 10.43.100.11 -j DNAT --to-destination 192.168.85.204
+sudo iptables -t nat -A POSTROUTING -s 192.168.85.204 -j MASQUERADE
+
+
+sudo kubeadm init --pod-network-cidr=172.16.0.0/12 --control-plane-endpoint 10.43.100.11 --node-name "zayver.worker-node"
+
+
+
+--node-name "kebyn."
+
+
+kubeadm join 10.43.100.11:6443 --token cdw8wb.dgqen0nadkknia2x --discovery-token-ca-cert-hash sha256:8d45a404fd6c98787a65d3532422cb7b03f64173313cb9b187ad9c5795e644f1 --control-plane --node-name "kebyn.master-node"
