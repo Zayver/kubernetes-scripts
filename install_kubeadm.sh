@@ -16,4 +16,7 @@ echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.
 sudo apt-get update
 sudo apt-get install -y kubelet kubeadm kubectl
 
+# wsl conf
+echo "[boot]\nsystemd=true\ncommand=\"swapoff -a; sysctl -w net.ipv4.ip_forward=1\""
+
 echo "Run firewall_config.ps1 to open win ports"
