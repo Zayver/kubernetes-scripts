@@ -17,7 +17,12 @@ sudo apt-get update
 sudo apt-get install -y kubelet kubeadm kubectl
 
 # wsl conf
-echo "[boot]\nsystemd=true\ncommand=\"swapoff -a; sysctl -w net.ipv4.ip_forward=1\n\n[network]\ngenerateResolvConf=false\"" | sudo tee /etc/wsl.conf
+echo "[boot]\nsystemd=true\ncommand=\"swapoff -a; sysctl -w net.ipv4.ip_forward=1\"\n\n[network]\ngenerateResolvConf=false" | sudo tee /etc/wsl.conf
+
+#resolv.conf
+sudo rm /etc/resolv.conf
+sudo bash -c 'echo "nameserver 8.8.8.8" > /etc/resolv.conf'
+sudo chattr +i /etc/resolv.conf
 
 #enable containerd
 sudo systemctl enable containerd
