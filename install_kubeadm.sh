@@ -17,6 +17,10 @@ sudo apt-get update
 sudo apt-get install -y kubelet kubeadm kubectl
 
 # wsl conf
-echo "[boot]\nsystemd=true\ncommand=\"swapoff -a; sysctl -w net.ipv4.ip_forward=1\""
+echo "[boot]\nsystemd=true\ncommand=\"swapoff -a; sysctl -w net.ipv4.ip_forward=1\n\n[network]\ngenerateResolvConf=false\"" | sudo tee /etc/wsl.conf
 
+#enable containerd
+sudo systemctl enable containerd
+
+echo "Reboot"
 echo "Run firewall_config.ps1 to open win ports"
